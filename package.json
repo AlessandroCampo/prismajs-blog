@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "migrate": "prisma migrate dev --name",
-    "start": "node  app.js"
+    "start": "node  app.js",
+    "seed:category": "node seeders/CategorySeeder.js",
+    "seed:tag": "node seeders/TagSeeder.js",
+    "seed:post": "node seeders/PostSeeder.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +17,8 @@
     "prisma": "^5.15.0"
   },
   "dependencies": {
-    "@prisma/client": "^5.15.0"
+    "@faker-js/faker": "^8.4.1",
+    "@prisma/client": "^5.15.0",
+    "slugify": "^1.6.6"
   }
 }

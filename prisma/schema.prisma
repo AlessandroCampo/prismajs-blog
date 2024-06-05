@@ -18,13 +18,13 @@ model Post {
   name       String
   slug       String   @unique
   image      String?
-  content    String
+  content    String   @db.Text
   published  Boolean
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   categories Category @relation(fields: [categoryId], references: [id])
   categoryId Int
-  tags       Tags[]
+  tags       Tag[]
 }
 
 model Category {
@@ -33,7 +33,7 @@ model Category {
   posts Post[]
 }
 
-model Tags {
+model Tag {
   id    Int    @id @default(autoincrement())
   name  String
   posts Post[]
