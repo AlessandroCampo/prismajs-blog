@@ -1,0 +1,19 @@
+{
+  "name": "prismajs-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "migrate": "prisma migrate dev --name",
+    "start": "node  app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^5.15.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.15.0"
+  }
+}
