@@ -1,4 +1,4 @@
-const { createPost } = require("./services/PostCrud");
+const { createPost, readPostFromSlug } = require("./services/PostCrud");
 
 const testPost = {
     name: 'Test Post',
@@ -6,7 +6,10 @@ const testPost = {
     published: false,
     category: 'Technology',
     tags: ['Entertainment', 'Business', 'Finance']
-}
+};
+
+const sampleSlug = 'quis-demum-copiose';
 
 
-createPost(testPost);
+// createPost(testPost);
+// readPostFromSlug(sampleSlug);

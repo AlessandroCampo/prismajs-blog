@@ -42,6 +42,36 @@ const createPost = async function (post) {
     }
 }
 
+const readPostFromSlug = async function (slug) {
+    try {
+        const foundPost = await prisma.post.findUnique({
+            where: {
+                slug
+            },
+            include: {
+                tags: {
+                    select: {
+                        name: true
+                    }
+                },
+                categories: {
+                    select: {
+                        name: true
+                    }
+                },
+            }
+        });
+        console.log(`Found post with title ${foundPost.name}`)
+        console.log(foundPost);
+        return foundPost
+    } catch (error) {
+        console.error(error);
+    }
+
+
+};
+
 module.exports = {
-    createPost
+    createPost,
+    readPostFromSlug
 }
