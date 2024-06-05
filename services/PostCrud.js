@@ -96,10 +96,11 @@ const getAllPosts = async function () {
 }
 
 const modifyPost = async function (newData, postId) {
-    const allPosts = await prisma.post.findMany();
-    if (!allPosts.some(p => p.id === postId)) {
-        throw new Error(`No post with id ${postId}`)
-    };
+    //NOTE - not efficent
+    // const allPosts = await prisma.post.findMany();
+    // if (!allPosts.some(p => p.id === postId)) {
+    //     throw new Error(`No post with id ${postId}`)
+    // };
     const categories = await prisma.category.findMany();
     if (newData.category) {
         const foundCategory = categories.find(c => c.name.toLocaleLowerCase() === newData.category.toLocaleLowerCase()).id;
@@ -148,10 +149,11 @@ const modifyPost = async function (newData, postId) {
 }
 
 const deletePostFromId = async function (postId, areYouSure) {
-    const allPosts = await prisma.post.findMany();
-    if (!allPosts.some(p => p.id === postId)) {
-        throw new Error(`No post found with id ${postId}`)
-    }
+    //NOTE - not efficent
+    // const allPosts = await prisma.post.find();
+    // if (!allPosts.some(p => p.id === postId)) {
+    //     throw new Error(`No post found with id ${postId}`)
+    // }
     if (!areYouSure) return
     try {
         const deletedPost = await prisma.post.delete({
