@@ -95,9 +95,62 @@ const getAllPosts = async function () {
     }
 }
 
+const modifyPost = async function (newData, postId) {
+    const allPosts = await prisma.post.findMany();
+    if (!allPosts.some(p => p.id === postId)) {
+        throw new Error(`No post with id ${postId}`)
+    };
+    const categories = await prisma.category.findMany();
+    if (newData.category) {
+        const foundCategory = categories.find(c => c.name.toLocaleLowerCase() === newData.category.toLocaleLowerCase()).id;
+        if (!foundCategory) {
+            throw new Error(`There is no category with name ${post.category}`)
+        }
+        newData.categoryId = foundCategory.id;
+        delete newData.category;
+    }
+
+    const tags = await prisma.tag.findMany();
+    if (newData.tags) {
+        const foundTags = newData.tags.reduce((acc, t) => {
+            const foundTag = tags.find(tag => tag.name.toLocaleLowerCase() === t.toLocaleLowerCase())
+            if (foundTag) {
+                return [...acc, { id: foundTag.id }]
+            }
+            return acc
+        }, [])
+        if (foundTags.length === 0) {
+            throw new Error(`None of the provided tags exists in the tag table`)
+        }
+        newData.tags = foundTags;
+    }
+
+    //In case name is provided, update the slug accordingly
+
+    if (newData.name) {
+        newData.slug = slugify(newData.name)
+    }
+
+
+    try {
+        const modifiedPost = await prisma.post.update({
+            where: { id: postId },
+            data: {
+                ...newData,
+                tags: { set: newData.tags }
+            }
+        })
+        console.log(`The following post has been modified`, modifiedPost)
+        return modifiedPost;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 module.exports = {
     createPost,
     readPostFromSlug,
-    getAllPosts
+    getAllPosts,
+    modifyPost
 }

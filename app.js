@@ -1,4 +1,4 @@
-const { createPost, readPostFromSlug, getAllPosts } = require("./services/PostCrud");
+const { createPost, readPostFromSlug, getAllPosts, modifyPost } = require("./services/PostCrud");
 
 const testPost = {
     name: 'Test Post',
@@ -9,8 +9,16 @@ const testPost = {
 };
 
 const sampleSlug = 'quis-demum-copiose';
+const editedProperites = {
+    name: 'Titolo modificato',
+    category: 'Books',
+    tags: ['Art',
+        'Music']
+}
 
 
 // createPost(testPost);
 // readPostFromSlug(sampleSlug);
 // getAllPosts();
+// modifyPost(editedProperites, 50)
+// readPostFromSlug('cornu-decumbo-valetudo');
