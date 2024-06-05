@@ -3,20 +3,6 @@ const { faker } = require('@faker-js/faker');
 const slugify = require('slugify');
 const prisma = new PrismaClient();
 
-// model Post {
-//     id         Int      @id @default(autoincrement())
-//     name       String
-//     slug       String   @unique
-//     image      String?
-//     content    String
-//     published  Boolean
-//     createdAt  DateTime @default(now())
-//     updatedAt  DateTime @updatedAt
-//     categories Category @relation(fields: [categoryId], references: [id])
-//     categoryId Int
-//     tags       Tag[]
-//   }
-
 
 const createRandomPosts = async function (totalPosts) {
     const categories = await prisma.category.findMany();
@@ -29,7 +15,7 @@ const createRandomPosts = async function (totalPosts) {
         const name = faker.lorem.words(3);
         newPosts.push({
             name,
-            slug: name + Math.floor(Math.random() * 1212),
+            slug: slugify(name),
             image: faker.image.urlLoremFlickr({ category: 'cats' }),
             content: faker.lorem.paragraphs(1),
             published: faker.datatype.boolean(),
