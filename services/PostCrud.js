@@ -164,11 +164,24 @@ const deletePostFromId = async function (postId, areYouSure) {
     }
 };
 
+const getAllPublishedPosts = async function () {
+    try {
+        const publishedPosts = await prisma.post.findMany({
+            where: { published: true }
+        })
+        console.log(`found ${publishedPosts.length} published posts`)
+        return publishedPosts
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 module.exports = {
     createPost,
     readPostFromSlug,
     getAllPosts,
     modifyPost,
-    deletePostFromId
+    deletePostFromId,
+    getAllPublishedPosts
 }
