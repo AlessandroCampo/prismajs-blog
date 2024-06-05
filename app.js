@@ -1,4 +1,4 @@
-const { createPost, readPostFromSlug } = require("./services/PostCrud");
+const { createPost, readPostFromSlug, getAllPosts } = require("./services/PostCrud");
 
 const testPost = {
     name: 'Test Post',
@@ -13,3 +13,4 @@ const sampleSlug = 'quis-demum-copiose';
 
 // createPost(testPost);
 // readPostFromSlug(sampleSlug);
+// getAllPosts();

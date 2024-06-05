@@ -54,7 +54,7 @@ const readPostFromSlug = async function (slug) {
                         name: true
                     }
                 },
-                categories: {
+                category: {
                     select: {
                         name: true
                     }
@@ -71,7 +71,33 @@ const readPostFromSlug = async function (slug) {
 
 };
 
+const getAllPosts = async function () {
+    try {
+        const allPosts = await prisma.post.findMany({
+            include: {
+                category: {
+                    select: {
+                        name: true
+                    }
+                },
+                tags: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
+        console.log(allPosts[0])
+        console.log(`Correctly found ${allPosts.length} posts`);
+        return allPosts;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
 module.exports = {
     createPost,
-    readPostFromSlug
+    readPostFromSlug,
+    getAllPosts
 }
