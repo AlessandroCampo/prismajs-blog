@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, Prisma } = require('@prisma/client');
 const slugify = require('slugify');
 const prisma = new PrismaClient();
 
@@ -147,10 +147,28 @@ const modifyPost = async function (newData, postId) {
     }
 }
 
+const deletePostFromId = async function (postId, areYouSure) {
+    const allPosts = await prisma.post.findMany();
+    if (!allPosts.some(p => p.id === postId)) {
+        throw new Error(`No post found with id ${postId}`)
+    }
+    if (!areYouSure) return
+    try {
+        const deletedPost = await prisma.post.delete({
+            where: { id: postId }
+        })
+        console.log('succesfully deleted one post', deletedPost)
+        return deletedPost
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 
 module.exports = {
     createPost,
     readPostFromSlug,
     getAllPosts,
-    modifyPost
+    modifyPost,
+    deletePostFromId
 }

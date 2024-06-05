@@ -1,4 +1,4 @@
-const { createPost, readPostFromSlug, getAllPosts, modifyPost } = require("./services/PostCrud");
+const { createPost, readPostFromSlug, getAllPosts, modifyPost, deletePostFromId } = require("./services/PostCrud");
 
 const testPost = {
     name: 'Test Post',
@@ -22,3 +22,4 @@ const editedProperites = {
 // getAllPosts();
 // modifyPost(editedProperites, 50)
 // readPostFromSlug('cornu-decumbo-valetudo');
+// deletePostFromId(1, true);
