@@ -175,6 +175,24 @@ const getAllPublishedPosts = async function () {
         console.error(error);
     }
 }
+const getPostsThatContainGivenStringInContent = async function (string) {
+    if (typeof (string) !== 'string') {
+        throw new Error('The argument must be of type string')
+    }
+    try {
+        const postsThatContainTheString = await prisma.post.findMany({
+            where: {
+                content: {
+                    contains: string
+                }
+            }
+        })
+        console.log(`found ${postsThatContainTheString.length} that contain ${string} in their content`)
+        return postsThatContainTheString
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 
 module.exports = {
@@ -183,5 +201,6 @@ module.exports = {
     getAllPosts,
     modifyPost,
     deletePostFromId,
-    getAllPublishedPosts
+    getAllPublishedPosts,
+    getPostsThatContainGivenStringInContent
 }
